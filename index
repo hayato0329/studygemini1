@@ -1,0 +1,651 @@
+@@ -0,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini完全活用ガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #4285f4, #ea4335, #fbbc05, #34a853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .gemini-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #4285f4, #ea4335);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-left: 4px solid #4285f4;
+            padding-left: 15px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            margin: 20px 0 10px;
+            color: #34495e;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #4285f4;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .models-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .models-table th {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .models-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            background: white;
+        }
+
+        .models-table tr:hover td {
+            background: #f8f9fa;
+        }
+
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .use-case {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f4 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .use-case:hover {
+            transform: translateY(-5px);
+            border-color: #4285f4;
+            box-shadow: 0 10px 25px rgba(66, 133, 244, 0.2);
+        }
+
+        .use-case-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: linear-gradient(45deg, #4285f4, #34a853);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #4285f4, #34a853);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4285f4;
+            margin: 10px 0;
+        }
+
+        .tips-list {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tip-item {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #34a853;
+            transition: all 0.3s ease;
+        }
+
+        .tip-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(52, 168, 83, 0.2);
+        }
+
+        .security-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .badge {
+            background: linear-gradient(45deg, #4285f4, #34a853);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header fade-in">
+            <div class="gemini-logo">G</div>
+            <h1>Gemini完全活用ガイド</h1>
+            <p class="subtitle">Googleの次世代マルチモーダルAI - あらゆる業務を革新する強力なツール</p>
+        </div>
+
+        <div class="section fade-in">
+            <h2>🌟 Geminiとは</h2>
+            <p>Gemini（ジェミニ）は、2023年12月にGoogleが開発・発表したマルチモーダル生成AIモデルです。テキスト、画像、音声、動画、コードなど様々な形式の情報をシームレスに理解・処理し、人間のような自然な対話が可能な次世代AIです。</p>
+            <div class="highlight">
+                <strong>注目ポイント：</strong>当初はBardという名称でリリースされていましたが、2024年2月に名称変更して「Gemini」として生まれ変わりました。
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>✨ Geminiの主な特徴</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🎯 マルチモーダル対応</h4>
+                    <p>テキスト、画像、音声、動画、コードなど複数の形式の情報を同時に処理。画像を見て説明したり、動画の内容を理解して要約することが可能です。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔗 Google製品との高い連携性</h4>
+                    <p>Google検索、Gmail、Googleドキュメント、スプレッドシート、スライドなどとの緊密な連携により、ワークフローを大幅に効率化します。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🧠 高度な推論能力</h4>
+                    <p>業界ベンチマークでは32項目中30項目で最高水準の性能を達成。多領域の学術ベンチマーク（MMLU）では90.0%という高スコアを記録。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🌐 リアルタイム情報アクセス</h4>
+                    <p>Google検索との連携により、最新のウェブ情報を取得し、常に最新情報に基づいた回答を提供します。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📚 長いコンテキストウィンドウ</h4>
+                    <p>Gemini 1.5 Proモデルでは最大100万トークン（約1500ページ分）を処理可能。非常に長い文書や多数のファイルを一度に分析できます。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔒 セキュリティ&プライバシー</h4>
+                    <p>SOC 1/2/3、ISO 27001/17/18、ISO 42001など複数の認証を取得。入力データがAIモデルの学習に使用されない保証があります。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>🚀 モデルのバリエーション</h2>
+            <table class="models-table">
+                <thead>
+                    <tr>
+                        <th>モデル</th>
+                        <th>特徴</th>
+                        <th>主な用途</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Gemini Ultra</strong></td>
+                        <td>最高性能の大規模モデル。テキスト、画像など多様な情報を高速処理</td>
+                        <td>高度な推論や創造的タスク、複雑な分析</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gemini Pro</strong></td>
+                        <td>汎用性の高いバランスの取れたモデル。高度な推論や創造的タスクに強み</td>
+                        <td>一般的な生成AIタスクや複雑な推論</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gemini Flash</strong></td>
+                        <td>Proの性能を維持しつつ、処理速度を向上。コスト効率に優れる</td>
+                        <td>高速な応答が求められるアプリケーション</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gemini Nano</strong></td>
+                        <td>デバイス上での実行に最適化されたモデル（特にGoogle Pixel向け）</td>
+                        <td>スマートフォンなどのモバイルデバイス</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section fade-in">
+            <h2>💼 主な活用方法と利用シーン</h2>
+            <div class="use-cases">
+                <div class="use-case">
+                    <div class="use-case-icon">📝</div>
+                    <h4>ビジネス文書作成</h4>
+                    <p>レポート、提案書、企画書の自動生成、長文資料の要約、多言語翻訳、メール文作成</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">📊</div>
+                    <h4>データ分析・可視化</h4>
+                    <p>スプレッドシートデータの分析、グラフ・表作成、予測分析、インサイト抽出</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🎬</div>
+                    <h4>マルチメディア処理</h4>
+                    <p>画像解析、動画要約、手書き文字認識、音声の文字起こし、コンテンツ理解</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">💻</div>
+                    <h4>プログラミング</h4>
+                    <p>コード生成、デバッグ支援、技術文書作成、実装可能な機能の開発</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🔍</div>
+                    <h4>情報収集・調査</h4>
+                    <p>リサーチ、Deep Research機能、競合分析、最新トレンドの調査</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🎨</div>
+                    <h4>クリエイティブ作業</h4>
+                    <p>アイディア創出、コンテンツ企画、キャッチコピー作成、Imagen3による画像生成</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>🔗 Google Workspaceとの連携</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>📄 Googleドキュメント</h4>
+                    <p>文章作成、要約、提案、推敲、画像生成機能を直接利用</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Googleスプレッドシート</h4>
+                    <p>データの分類・整理、表・グラフ作成、数式提案、データ分析</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📽️ Googleスライド</h4>
+                    <p>プレゼン資料作成、画像生成、内容要約機能</p>
+                </div>
+                <div class="feature-card">
+                    <h4>✉️ Gmail</h4>
+                    <p>メール下書き、返信提案、スレッド要約、情報検索</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎥 Google Meet</h4>
+                    <p>会議メモ生成、背景画像生成、議事録作成</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💾 Google ドライブ</h4>
+                    <p>ファイル要約・検索、PDF要約、文書管理</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>💰 料金プラン</h2>
+            <h3>個人向け</h3>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h4>Gemini</h4>
+                    <div class="price">無料</div>
+                    <p>テキスト・画像生成、文章要約、基本的なチャット機能</p>
+                </div>
+                <div class="pricing-card">
+                    <h4>Gemini Advanced</h4>
+                    <div class="price">月額2,900円</div>
+                    <p>上位モデル（Ultra）の利用、Deep Research機能、2TBのストレージ</p>
+                </div>
+            </div>
+            
+            <h3>ビジネス向け</h3>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h4>Workspace Add-on</h4>
+                    <div class="price">月額$10/ユーザー</div>
+                    <p>既存のGoogle WorkspaceにGemini機能を追加</p>
+                </div>
+                <div class="pricing-card">
+                    <h4>Enterprise</h4>
+                    <div class="price">要問合せ</div>
+                    <p>高度なセキュリティ機能、大規模導入向けカスタマイズ</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>🔒 セキュリティと安全性</h2>
+            <div class="security-badges">
+                <span class="badge">SOC 1/2/3</span>
+                <span class="badge">ISO 27001</span>
+                <span class="badge">ISO 27017</span>
+                <span class="badge">ISO 27018</span>
+                <span class="badge">ISO 42001</span>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>データ所有権の保護</h4>
+                    <p>ユーザーのデータはユーザーのもの。許可なくAIモデルのトレーニングには使用されません。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>厳格なアクセス制御</h4>
+                    <p>ユーザーがアクセス権を持つデータのみを取得・処理します。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>専門的セキュリティテスト</h4>
+                    <p>外部の専門家によるレッドチームテストを定期的に実施しています。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>💡 効果的に活用するためのヒント</h2>
+            <div class="tips-list">
+                <div class="tip-item">
+                    <strong>具体的なプロンプトを使用：</strong>「要約して」より「3行で要約して」のように具体的な指示を出しましょう
+                </div>
+                <div class="tip-item">
+                    <strong>対話を重ねる：</strong>一度で完璧な回答を求めるのではなく、対話を重ねて徐々に精度を高めましょう
+                </div>
+                <div class="tip-item">
+                    <strong>フィードバック機能を活用：</strong>回答の品質向上のためにフィードバックを積極的に提供しましょう
+                </div>
+                <div class="tip-item">
+                    <strong>マルチモーダル機能を最大活用：</strong>テキストだけでなく、画像や音声も組み合わせて使いましょう
+                </div>
+                <div class="tip-item">
+                    <strong>Google Workspaceとの連携を活用：</strong>既存のGoogle環境との連携を活かした効率的なワークフローを構築しましょう
+                </div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>🚀 Geminiの将来性</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>高度なマルチモーダル処理</h4>
+                    <p>動画や3Dデータなど、より複雑なデータ形式への対応強化が予定されています。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>プロアクティブなタスク管理</h4>
+                    <p>ユーザーの意図を先読みした支援機能の開発が進められています。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>プラットフォーム横断的連携</h4>
+                    <p>Googleだけでなくサードパーティのサービスとのより緊密な連携が実現予定です。</p>
+                </div>
+                <div class="feature-card">
+                    <h4>カスタマイズ性の向上</h4>
+                    <p>企業や個人のニーズに合わせた専用モデルの構築・調整機能が拡充されます。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section fade-in">
+            <h2>今すぐGeminiを始めよう</h2>
+            <p>無料版でも多くの機能が利用できます。まずは基本的な使い方から始めて、徐々に活用範囲を広げていきましょう。</p>
+            <a href="#" class="cta-button">Geminiを試してみる</a>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add interactive hover effects
+        document.querySelectorAll('.feature-card, .use-case, .pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Dynamic color changes on scroll
+        let colorIndex = 0;
+        const colors = [
+            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+        ];
+
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            if (scrollPercent > 0.25 && scrollPercent < 0.5) {
+                document.body.style.background = colors[1];
+            } else if (scrollPercent > 0.5 && scrollPercent < 0.75) {
+                document.body.style.background = colors[2];
+            } else if (scrollPercent > 0.75) {
+                document.body.style.background = colors[3];
+            } else {
+                document.body.style.background = colors[0];
+            }
+        });
+    </script>
+</body>
+</html>
